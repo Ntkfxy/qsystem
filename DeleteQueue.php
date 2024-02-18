@@ -1,14 +1,14 @@
 <?php
-if (isset($_GET["Qdate"])) {
-    $strQdate = $_GET["Qdate"];
+if (isset($_GET["QNumber"])) {
+    $strQNumber = $_GET["QNumber"];
 }
 
 require('conn.php');
 
 
-$sql = "DELETE  FROM queue WHERE Qdate=:Qdate ";
+$sql = "DELETE  FROM queue WHERE QNumber=:QNumber ";
 $stmt = $conn->prepare($sql);
-$stmt->bindParam(':Qdate', $strQdate);
+$stmt->bindParam(':QNumber', $strQNumber);
 $stmt->execute();
 echo '
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>

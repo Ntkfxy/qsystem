@@ -6,8 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
-    <title>005-Natthakan</title>
-
+    <title> 005-Natthakan</title>
     <style type="text/css">
         img {
             transition: transform 0.25s ease;
@@ -26,18 +25,23 @@
     <?php
     require 'conn.php';
 
-    if (isset($_POST['submit'])) {
-        if (!empty($_POST['Pid']) && !empty($_POST['QNumber'])) {
-            echo '<br>' . $_POST['Pid'];
+    $sql_select = 'SELECT * from patient order by Pid';
+    $stmt_s = $conn->prepare($sql_select);
+    $stmt_s->execute();
+
+    if (isset($_POST['Qdate'])) {
+        echo "gtuio";
+        if (!empty($_POST['Qdate']) && !empty($_POST['Qdate'])) {
+            echo "hjbjk";
 
 
-            $sql = "INSERT INTO queue (Qdate, QNumber, Pid) VALUES (:Qdate, :QNumber, :Pid)";
-
-
+            $sql = "insert into queue 
+            values (:Qdate, :QNumber, :pid)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':Qdate', $_POST['Qdate']);
             $stmt->bindParam(':QNumber', $_POST['QNumber']);
-            $stmt->bindParam(':Pid', $_POST['Pid']);
+            $stmt->bindParam(':pid', $_POST['Pid']);
+            echo "uyiub";
 
             echo '
                 <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
@@ -52,7 +56,7 @@
                     
                             swal({
                                 title: "Success!",
-                                text: "Successfuly add patient",
+                                text: "Successfuly add customer",
                                 type: "success",
                                 timer: 2500,
                                 showConfirmButton: false
@@ -98,7 +102,7 @@
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script>
         $(document).ready(function() {
-            $('#PatientTable').DataTable();
+            $('#customerTable').DataTable();
         });
     </script>
 

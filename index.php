@@ -24,7 +24,7 @@
                         <tr>
                             <th width="10%">วันที่จองเข้ารับการรักษา</th>
                             <th width="10%">รหัสคิว</th>
-                            <th width="25%">ชื่อ - นามสกุล</th>
+                            <th width="25%">รหัสประชาชน</th>
                             <th width="10%">เพศ</th>
                             <th width="10%">ภาพผู้ป่วย</th>
                             <th width="15%">สถานะคิว</th>
@@ -36,7 +36,7 @@
                     <tbody>
                         <?php
                         require 'conn.php';
-                        $query = "SELECT queue.Qdate,queue.QNumber,patient.Pname,gender.genderDescription,patient.Image,queue.Qstatus 
+                        $query = "SELECT queue.Qdate,queue.QNumber,patient.Pid,gender.genderDescription,patient.Image,queue.Qstatus 
                         FROM `gender`,patient,queue 
                         WHERE gender.genderID = patient.Pgender 
                         AND patient.Pid = queue.Pid";
@@ -53,7 +53,7 @@
                                     <?= $r['QNumber'] ?>
                                 </td>
                                 <td>
-                                    <?= $r['Pname'] ?>
+                                    <?= $r['Pid'] ?>
                                 </td>
                                 <td>
                                     <?= $r['genderDescription'] ?>
@@ -62,8 +62,8 @@
                                 <td>
                                     <?= $r['Qstatus'] ?>
                                 </td>
-                                <td><a href="UpdateQueueForm.php?Qdate=<?= $r['Qdate'] ?>" class="btn btn-warning btn-sm">แก้ไข</a></td>
-                                <td><a href="DeleteQueue.php?Qdate=<?= $r['Qdate'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('ยืนยันการลบข้อมูล !!');">ลบ</a></td>
+                                <td><a href="UpdateQueueForm.php?QNumber=<?= $r['QNumber'] ?>" class="btn btn-warning btn-sm">แก้ไข</a></td>
+                                <td><a href="DeleteQueue.php?QNumber=<?= $r['QNumber'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('ยืนยันการลบข้อมูล !!');">ลบ</a></td>
 
                             </tr>
                         <?php }

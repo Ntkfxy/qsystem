@@ -39,7 +39,7 @@
                         $query = "SELECT queue.Qdate,queue.QNumber,patient.Pid,gender.genderDescription,patient.Image,queue.Qstatus 
                         FROM `gender`,patient,queue 
                         WHERE gender.genderID = patient.Pgender 
-                        AND patient.Pid = queue.Pid";
+                        AND patient.Pid = queue.pid";
                         $stmt = $conn->prepare($query);
                         $stmt->execute();
                         $result = $stmt->fetchAll();

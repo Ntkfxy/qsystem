@@ -24,58 +24,50 @@
 <body>
     <?php
     require 'conn.php';
+    $sql_u = "SELECT * FROM patient ORDER BY Pid";
+    $stmt_t = $conn->prepare($sql_u);
+    $stmt_t = $stmt_t->execute();
 
-    $sql_select = 'SELECT * from patient order by Pid';
-    $stmt_s = $conn->prepare($sql_select);
-    $stmt_s->execute();
 
     if (isset($_POST['Qdate'])) {
-        echo "gtuio";
-        if (!empty($_POST['Qdate']) && !empty($_POST['Qdate'])) {
-            echo "hjbjk";
-
-
-            $sql = "insert into queue 
-            values (:Qdate, :QNumber, :pid)";
+        if (!empty($_POST['Qdate']) && !empty($_POST['QNumber']) && !empty($_POST['Pid'])) {
+            $sql = "INSERT INTO queue (Qdate, QNumber, Pid) VALUES (:Qdate, :QNumber, :pid)";
             $stmt = $conn->prepare($sql);
             $stmt->bindParam(':Qdate', $_POST['Qdate']);
             $stmt->bindParam(':QNumber', $_POST['QNumber']);
             $stmt->bindParam(':pid', $_POST['Pid']);
-            echo "uyiub";
-
-            echo '
-                <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
-                <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
-                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
 
             try {
-                if ($stmt->execute()) :
+                if ($stmt->execute()) {
                     echo '
-                        <script type="text/javascript">        
+                    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+                    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">
+                    <script type="text/javascript">        
                         $(document).ready(function(){
-                    
                             swal({
                                 title: "Success!",
-                                text: "Successfuly add customer",
+                                text: "Successfully added customer",
                                 type: "success",
                                 timer: 2500,
                                 showConfirmButton: false
                             }, function(){
-                                    window.location.href = "index.php";
+                                window.location.href = "index.php";
                             });
                         });                    
-                        </script>
-                    ';
-                else :
-                    $message = 'Fail to add new Queue';
-                endif;
+                    </script>
+                ';
+                } else {
+                    $message = 'Failed to add new Queue';
+                }
             } catch (PDOException $e) {
-                echo 'Fail! ' . $e;
+                echo 'Fail! ' . $e->getMessage();
             }
             $conn = null;
         }
     }
     ?>
+
 
 
 

@@ -13,10 +13,10 @@
 
     <?php
     require 'conn.php';
-    if (isset($_GET['QNumber'])) {
-        $query_select = 'SELECT * FROM queue WHERE QNumber=?';
+    if (isset($_GET['QNumber'], $_GET['Qdate'])) {
+        $query_select = 'SELECT * FROM queue WHERE QNumber=? and Qdate=? ';
         $stmt = $conn->prepare($query_select);
-        $params = array($_GET['QNumber']);
+        $params = array($_GET['QNumber'], $_GET['Qdate']);
         $stmt->execute($params);
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
     }
@@ -30,7 +30,7 @@
                 <form action="UpdateQueue.php" method="POST">
 
                     <label for="name" class="col-sm-5 col-form-label"> วันที่จองเข้ารับการรักษา : </label>
-                    <input type="text" name="Qdate" class="form-control" required value="<?php echo $result['Qdate']; ?>" readonly>
+                    <input type="date" name="Qdate" class="form-control" required value="<?php echo $result['Qdate']; ?>" readonly>
 
 
                     <label for="name" class="col-sm-2 col-form-label"> รหัสคิว : </label>

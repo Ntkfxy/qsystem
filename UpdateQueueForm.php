@@ -30,11 +30,11 @@
                 <form action="UpdateQueue.php" method="POST">
 
                     <label for="name" class="col-sm-5 col-form-label"> วันที่จองเข้ารับการรักษา : </label>
-                    <input type="text" name="Qdate" class="form-control" required value="<?php echo $result['Qdate']; ?>">
+                    <input type="text" name="Qdate" class="form-control" required value="<?php echo $result['Qdate']; ?>" readonly>
 
 
                     <label for="name" class="col-sm-2 col-form-label"> รหัสคิว : </label>
-                    <input type="text" name="QNumber" class="form-control" required value="<?php echo $result['QNumber']; ?>">
+                    <input type="text" name="QNumber" class="form-control" required value="<?php echo $result['QNumber']; ?>" readonly>
 
                     <label for="name" class="col-sm-2 col-form-label"> รหัสบัตรประชาชน : </label>
                     <input type="text" name="Pid" class="form-control" required value="<?php echo $result['pid']; ?>">

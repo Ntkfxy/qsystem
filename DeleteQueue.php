@@ -1,21 +1,22 @@
 <?php
-if (isset($_GET["QNumber"])) {
-    $strQNumber = $_GET["QNumber"];
+if (isset($_POST["QNumber"]) && ($_POST["Qdate"])) {
+    $strQdate = $_POST["Qdate"];
+    $strQNumber = $_POST["QNumber"];
 }
 
 require('conn.php');
 
 
-$sql = "DELETE  FROM queue WHERE QNumber=:QNumber ";
+$sql = "DELETE  FROM queue WHERE QNumber=:QNumber and Qdate = :Qdate ";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':QNumber', $strQNumber);
-$stmt->execute();
+$stmt->bindParam(':Qdate', $strQdate);
 echo '
     <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert-dev.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css">';
 
-if ($conn->prepare($sql)) {
+if ($stmt->execute()) {
     // $message = "Successfully delete customer" . $_GET['CustomerID'] . ".";
     echo '
         <script type="text/javascript">

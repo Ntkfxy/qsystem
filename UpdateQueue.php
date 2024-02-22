@@ -1,16 +1,15 @@
 <?php
 
 
-if (isset($_POST['QNumber']))
+if (isset($_POST['QNumber']) && ($_POST['Qdate']))
   require 'conn.php';
 
 
 
 $sql =  "UPDATE queue 
         SET QStatus = :QStatus,
-        pid =:pid,
-        Qdate =:Qdate
-          WHERE QNumber =:QNumber";
+        pid =:pid
+          WHERE QNumber =:QNumber and  Qdate =:Qdate";
 $stmt = $conn->prepare($sql);
 $stmt->bindParam(':QStatus', $_POST['QStatus']);
 $stmt->bindParam(':pid', $_POST['pid']);
